@@ -1,0 +1,17 @@
+{
+  "name": "Complete Gardener Planner",
+  "short_name": "Gardener",
+  "description": "Offline-first garden, sun, watering, crop rotation, and harvest planner.",
+  "start_url": "/complete-gardener-planner/",
+  "scope": "/complete-gardener-planner/",
+  "display": "standalone",
+  "background_color": "#f7faf4",
+  "theme_color": "#2f6f4e",
+  "icons": [
+    {
+      "src": "/complete-gardener-planner/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
