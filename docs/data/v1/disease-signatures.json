@@ -1,0 +1,79 @@
+[
+  {
+    "id": "powdery-mildew",
+    "label": "Powdery mildew",
+    "affected_plants": [
+      "tomato",
+      "bean",
+      "cucumber",
+      "pepper"
+    ],
+    "visual_cues": [
+      "white powder patches",
+      "leaf curl",
+      "humid nights"
+    ],
+    "severity_default": "medium",
+    "organic_actions": [
+      "Prune for airflow",
+      "Water at soil level",
+      "Remove heavily infected leaves"
+    ]
+  },
+  {
+    "id": "early-blight",
+    "label": "Early blight",
+    "affected_plants": [
+      "tomato"
+    ],
+    "visual_cues": [
+      "concentric brown leaf spots",
+      "yellow halo",
+      "lower leaves first"
+    ],
+    "severity_default": "medium",
+    "organic_actions": [
+      "Mulch soil splash zone",
+      "Rotate nightshades for 3 years",
+      "Remove infected foliage"
+    ]
+  },
+  {
+    "id": "downy-mildew",
+    "label": "Downy mildew",
+    "affected_plants": [
+      "basil",
+      "lettuce",
+      "cucumber"
+    ],
+    "visual_cues": [
+      "angular yellow lesions",
+      "gray underside fuzz",
+      "cool wet weather"
+    ],
+    "severity_default": "high",
+    "organic_actions": [
+      "Increase spacing",
+      "Avoid overhead watering",
+      "Remove infected plants promptly"
+    ]
+  },
+  {
+    "id": "rust",
+    "label": "Bean rust",
+    "affected_plants": [
+      "bean"
+    ],
+    "visual_cues": [
+      "orange pustules",
+      "speckled leaves",
+      "late-season humidity"
+    ],
+    "severity_default": "low",
+    "organic_actions": [
+      "Destroy crop residue",
+      "Use drip irrigation",
+      "Plant resistant varieties"
+    ]
+  }
+]

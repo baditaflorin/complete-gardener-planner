@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "soil-cells.v1",
+  "record_count": 3,
+  "input_checksums": {
+    "soil-cells": "114dfdc8823b516719b0256c0d4782f78b03e4a48711c1524a37e6bf0893c959"
+  }
+}

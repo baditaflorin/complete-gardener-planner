@@ -1,0 +1,38 @@
+[
+  {
+    "id": "loam-urban-001",
+    "label": "Raised bed loam",
+    "latitude": 44.43,
+    "longitude": 26.1,
+    "texture": "loam",
+    "organic_matter_pc": 5.8,
+    "ph": 6.6,
+    "drainage": "balanced",
+    "water_holding_mm": 42,
+    "source": "demo raster cell normalized from static fixture"
+  },
+  {
+    "id": "clay-urban-002",
+    "label": "Compacted urban clay",
+    "latitude": 45.76,
+    "longitude": 21.23,
+    "texture": "clay loam",
+    "organic_matter_pc": 3.1,
+    "ph": 7.4,
+    "drainage": "slow",
+    "water_holding_mm": 56,
+    "source": "demo raster cell normalized from static fixture"
+  },
+  {
+    "id": "sandy-balcony-003",
+    "label": "Container sandy mix",
+    "latitude": 41.39,
+    "longitude": 2.17,
+    "texture": "sandy loam",
+    "organic_matter_pc": 4.4,
+    "ph": 6.2,
+    "drainage": "fast",
+    "water_holding_mm": 26,
+    "source": "demo raster cell normalized from static fixture"
+  }
+]

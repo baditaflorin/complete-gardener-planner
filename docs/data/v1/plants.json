@@ -1,0 +1,341 @@
+[
+  {
+    "id": "tomato",
+    "common_name": "Tomato",
+    "scientific_name": "Solanum lycopersicum",
+    "family": "Solanaceae",
+    "guild": "fruiting annual",
+    "usda_zones": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3-H5",
+    "days_to_harvest": 78,
+    "water_mm_per_week": 34,
+    "sun_hours_min": 7,
+    "sun_hours_max": 10,
+    "rotation_group": "nightshade",
+    "soil_ph_min": 6,
+    "soil_ph_max": 6.8,
+    "planting_months": [
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "harvest_months": [
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "early-blight",
+      "powdery-mildew"
+    ],
+    "companion_boost_ids": [
+      "basil",
+      "marigold"
+    ]
+  },
+  {
+    "id": "basil",
+    "common_name": "Basil",
+    "scientific_name": "Ocimum basilicum",
+    "family": "Lamiaceae",
+    "guild": "herb",
+    "usda_zones": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3",
+    "days_to_harvest": 45,
+    "water_mm_per_week": 25,
+    "sun_hours_min": 6,
+    "sun_hours_max": 9,
+    "rotation_group": "leafy",
+    "soil_ph_min": 6,
+    "soil_ph_max": 7.5,
+    "planting_months": [
+      "Apr",
+      "May",
+      "Jun"
+    ],
+    "harvest_months": [
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "downy-mildew"
+    ],
+    "companion_boost_ids": [
+      "tomato",
+      "pepper"
+    ]
+  },
+  {
+    "id": "lettuce",
+    "common_name": "Lettuce",
+    "scientific_name": "Lactuca sativa",
+    "family": "Asteraceae",
+    "guild": "leafy annual",
+    "usda_zones": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "eu_hardiness": "H4-H6",
+    "days_to_harvest": 35,
+    "water_mm_per_week": 22,
+    "sun_hours_min": 4,
+    "sun_hours_max": 7,
+    "rotation_group": "leafy",
+    "soil_ph_min": 6,
+    "soil_ph_max": 7,
+    "planting_months": [
+      "Mar",
+      "Apr",
+      "Sep"
+    ],
+    "harvest_months": [
+      "Apr",
+      "May",
+      "Oct"
+    ],
+    "disease_risks": [
+      "downy-mildew",
+      "aphid-pressure"
+    ],
+    "companion_boost_ids": [
+      "carrot",
+      "radish"
+    ]
+  },
+  {
+    "id": "carrot",
+    "common_name": "Carrot",
+    "scientific_name": "Daucus carota subsp. sativus",
+    "family": "Apiaceae",
+    "guild": "root crop",
+    "usda_zones": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "eu_hardiness": "H4-H6",
+    "days_to_harvest": 70,
+    "water_mm_per_week": 24,
+    "sun_hours_min": 6,
+    "sun_hours_max": 9,
+    "rotation_group": "root",
+    "soil_ph_min": 6,
+    "soil_ph_max": 6.8,
+    "planting_months": [
+      "Mar",
+      "Apr",
+      "Aug"
+    ],
+    "harvest_months": [
+      "Jun",
+      "Jul",
+      "Oct"
+    ],
+    "disease_risks": [
+      "leaf-blight"
+    ],
+    "companion_boost_ids": [
+      "lettuce",
+      "onion"
+    ]
+  },
+  {
+    "id": "bean",
+    "common_name": "Bush Bean",
+    "scientific_name": "Phaseolus vulgaris",
+    "family": "Fabaceae",
+    "guild": "legume",
+    "usda_zones": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3-H5",
+    "days_to_harvest": 55,
+    "water_mm_per_week": 26,
+    "sun_hours_min": 6,
+    "sun_hours_max": 9,
+    "rotation_group": "legume",
+    "soil_ph_min": 6,
+    "soil_ph_max": 7,
+    "planting_months": [
+      "May",
+      "Jun",
+      "Jul"
+    ],
+    "harvest_months": [
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "rust",
+      "powdery-mildew"
+    ],
+    "companion_boost_ids": [
+      "corn",
+      "cucumber"
+    ]
+  },
+  {
+    "id": "marigold",
+    "common_name": "Marigold",
+    "scientific_name": "Tagetes patula",
+    "family": "Asteraceae",
+    "guild": "beneficial flower",
+    "usda_zones": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3-H5",
+    "days_to_harvest": 60,
+    "water_mm_per_week": 18,
+    "sun_hours_min": 6,
+    "sun_hours_max": 10,
+    "rotation_group": "flower",
+    "soil_ph_min": 6,
+    "soil_ph_max": 7.5,
+    "planting_months": [
+      "Apr",
+      "May",
+      "Jun"
+    ],
+    "harvest_months": [
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "botrytis"
+    ],
+    "companion_boost_ids": [
+      "tomato",
+      "pepper",
+      "lettuce"
+    ]
+  },
+  {
+    "id": "pepper",
+    "common_name": "Pepper",
+    "scientific_name": "Capsicum annuum",
+    "family": "Solanaceae",
+    "guild": "fruiting annual",
+    "usda_zones": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3-H5",
+    "days_to_harvest": 75,
+    "water_mm_per_week": 30,
+    "sun_hours_min": 7,
+    "sun_hours_max": 10,
+    "rotation_group": "nightshade",
+    "soil_ph_min": 6,
+    "soil_ph_max": 6.8,
+    "planting_months": [
+      "Apr",
+      "May"
+    ],
+    "harvest_months": [
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "bacterial-spot",
+      "powdery-mildew"
+    ],
+    "companion_boost_ids": [
+      "basil",
+      "marigold"
+    ]
+  },
+  {
+    "id": "cucumber",
+    "common_name": "Cucumber",
+    "scientific_name": "Cucumis sativus",
+    "family": "Cucurbitaceae",
+    "guild": "vining annual",
+    "usda_zones": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "eu_hardiness": "H3-H5",
+    "days_to_harvest": 58,
+    "water_mm_per_week": 36,
+    "sun_hours_min": 7,
+    "sun_hours_max": 10,
+    "rotation_group": "cucurbit",
+    "soil_ph_min": 6,
+    "soil_ph_max": 7,
+    "planting_months": [
+      "May",
+      "Jun"
+    ],
+    "harvest_months": [
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "disease_risks": [
+      "powdery-mildew",
+      "downy-mildew"
+    ],
+    "companion_boost_ids": [
+      "bean",
+      "radish"
+    ]
+  }
+]

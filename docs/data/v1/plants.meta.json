@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "plants.v1",
+  "record_count": 8,
+  "input_checksums": {
+    "plants": "87c28b82977d29b040bc284933ef7f5ffa10105d7a25e9634984223db42c7f19"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "disease-signatures.v1",
+  "record_count": 4,
+  "input_checksums": {
+    "disease-signatures": "24f73d93bd5d8f98dcdcca526cc78d80e9d3487ab26261e9cb92a5f0cc02cab0"
+  }
+}

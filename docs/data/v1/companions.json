@@ -1,0 +1,44 @@
+[
+  {
+    "source_id": "tomato",
+    "target_id": "basil",
+    "kind": "beneficial",
+    "reason": "Shared irrigation and aromatic pest confusion.",
+    "weight": 0.86
+  },
+  {
+    "source_id": "tomato",
+    "target_id": "marigold",
+    "kind": "beneficial",
+    "reason": "Flower strip improves beneficial insect traffic.",
+    "weight": 0.74
+  },
+  {
+    "source_id": "lettuce",
+    "target_id": "carrot",
+    "kind": "beneficial",
+    "reason": "Different rooting depth and compatible cool-season timing.",
+    "weight": 0.71
+  },
+  {
+    "source_id": "bean",
+    "target_id": "cucumber",
+    "kind": "beneficial",
+    "reason": "Legume follows heavy feeder and shares warm-season bed timing.",
+    "weight": 0.68
+  },
+  {
+    "source_id": "tomato",
+    "target_id": "pepper",
+    "kind": "avoid",
+    "reason": "Same nightshade rotation group and overlapping disease pressure.",
+    "weight": -0.82
+  },
+  {
+    "source_id": "cucumber",
+    "target_id": "lettuce",
+    "kind": "caution",
+    "reason": "Cucumber canopy can shade lettuce unless trellised north of the row.",
+    "weight": -0.31
+  }
+]

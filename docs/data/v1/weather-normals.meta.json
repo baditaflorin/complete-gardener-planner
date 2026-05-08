@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "weather-normals.v1",
+  "record_count": 3,
+  "input_checksums": {
+    "weather-normals": "7fe9db15180b18c2c29075ddba7b6e2f0b6571bf3d5004e67270251a1b6c2dc0"
+  }
+}

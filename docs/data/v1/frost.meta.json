@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "frost.v1",
+  "record_count": 3,
+  "input_checksums": {
+    "frost": "e8abc5fb8f7fbe7e592bf64f0a255f8d772bf0e7e8d35b04cb59c3ee6e7c4cc8"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-08T08:36:18Z",
+  "source_commit": "16b69aa",
+  "schema_version": "companions.v1",
+  "record_count": 6,
+  "input_checksums": {
+    "companions": "f8a8be8a2a8614fbab172e4bf0f49fc3bc75fea9a19f4dcf80227717ffa9ffd9"
+  }
+}

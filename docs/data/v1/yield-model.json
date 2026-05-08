@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "model_kind": "linear-regression-demo",
+  "features": [
+    "sun_hours",
+    "water_balance_mm",
+    "soil_organic_matter_pc",
+    "days_in_ground",
+    "disease_pressure"
+  ],
+  "coefficients": {
+    "days_in_ground": 0.011,
+    "disease_pressure": -0.14,
+    "soil_organic_matter_pc": 0.065,
+    "sun_hours": 0.082,
+    "water_balance_mm": 0.018
+  },
+  "intercept": 0.62,
+  "mae_percent": 13.8,
+  "training_rows": 72,
+  "notes": "Demo coefficients mirror the Polars/scikit-learn workflow in ml/train_yield_model.py."
+}
