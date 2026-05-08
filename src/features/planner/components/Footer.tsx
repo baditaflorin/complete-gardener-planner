@@ -15,12 +15,20 @@ export function Footer() {
       <span>Version {buildInfo.version}</span>
       <span>
         Commit{' '}
-        <a href={latest?.url ?? `${buildInfo.repositoryUrl}/commit/${buildInfo.commit}`} target="_blank" rel="noreferrer">
+        <a
+          href={latest?.url ?? `${buildInfo.repositoryUrl}/commit/${buildInfo.commit}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           {latest?.sha ?? buildInfo.commit}
         </a>
       </span>
-      <a href={buildInfo.repositoryUrl} target="_blank" rel="noreferrer"><GitFork size={15} /> GitHub repo</a>
-      <a href={buildInfo.paypalUrl} target="_blank" rel="noreferrer"><HeartHandshake size={15} /> PayPal</a>
+      <a href={buildInfo.repositoryUrl} target="_blank" rel="noreferrer">
+        <GitFork size={15} /> GitHub repo
+      </a>
+      <a href={buildInfo.paypalUrl} target="_blank" rel="noreferrer">
+        <HeartHandshake size={15} /> PayPal
+      </a>
     </footer>
   )
 }

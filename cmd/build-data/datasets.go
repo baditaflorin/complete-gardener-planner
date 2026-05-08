@@ -1,3 +1,4 @@
+// Package main builds static garden planning artifacts for GitHub Pages.
 package main
 
 func buildArtifacts() []Artifact {

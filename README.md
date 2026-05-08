@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# Complete Gardener Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live site: https://baditaflorin.github.io/complete-gardener-planner/
 
-Currently, two official plugins are available:
+Repository: https://github.com/baditaflorin/complete-gardener-planner
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Support: https://www.paypal.com/paypalme/florinbadita
 
-## React Compiler
+![Complete Gardener Planner demo](https://raw.githubusercontent.com/baditaflorin/complete-gardener-planner/main/docs/media/demo-screenshot.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Static-first planner for plant ID, crop rotation, sun, soil, watering, frost, and harvest forecasts. It is built for gardeners and urban farmers who want one offline-friendly place to turn photos, local growing conditions, and reference data into a practical bed plan.
 
-## Expanding the ESLint configuration
+## Quickstart
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+make install-hooks
+make data
+make build
+make pages-preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## What Works In V1
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Snap or upload a garden photo and get client-side plant and disease candidates.
+- Pick crops, frost zone, soil cell, planting date, bed area, and shade.
+- Generate a SunCalc-based sun map, watering schedule, crop rotation, companion-planting hints, and harvest projection.
+- Fetch versioned static artifacts from `docs/data/v1/`.
+- See the published version and latest GitHub commit in the page footer.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture
+
+```mermaid
+flowchart LR
+  User["Gardener / urban farmer"] --> Pages["GitHub Pages static app"]
+  Pages --> Browser["Browser compute and storage"]
+  Browser --> IndexedDB["IndexedDB garden plan"]
+  Browser --> Data["/data/v1 JSON artifacts"]
+  Generator["Go build-data command"] --> Data
+  ML["Optional Polars + scikit-learn trainer"] --> Data
 ```
+
+Architecture docs: https://github.com/baditaflorin/complete-gardener-planner/blob/main/docs/architecture.md
+
+ADRs: https://github.com/baditaflorin/complete-gardener-planner/tree/main/docs/adr
+
+Data contract: https://github.com/baditaflorin/complete-gardener-planner/blob/main/docs/data.md
+
+Deploy guide: https://github.com/baditaflorin/complete-gardener-planner/blob/main/docs/deploy.md
+
+Privacy: https://github.com/baditaflorin/complete-gardener-planner/blob/main/docs/privacy.md

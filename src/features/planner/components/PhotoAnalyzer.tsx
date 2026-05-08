@@ -47,7 +47,13 @@ export function PhotoAnalyzer({ plants, diseases }: Props) {
 
       <label className="photo-drop">
         <input type="file" accept="image/*" onChange={(event) => void onFile(event.target.files?.[0])} />
-        {preview ? <img src={preview} alt="Uploaded garden preview" /> : <span><ImageUp size={24} /> Upload leaf, bed, or crop photo</span>}
+        {preview ? (
+          <img src={preview} alt="Uploaded garden preview" />
+        ) : (
+          <span>
+            <ImageUp size={24} /> Upload leaf, bed, or crop photo
+          </span>
+        )}
       </label>
 
       {busy && <p className="muted">Analyzing pixels and loading the local inference adapter...</p>}
@@ -56,18 +62,26 @@ export function PhotoAnalyzer({ plants, diseases }: Props) {
       {result && (
         <div className="analysis-result">
           <p className="status-pill">{result.modelStatus}</p>
-          <strong>{topPlant ? `${topPlant.label} (${Math.round(topPlant.confidence * 100)}%)` : 'No plant candidate'}</strong>
+          <strong>
+            {topPlant
+              ? `${topPlant.label} (${Math.round(topPlant.confidence * 100)}%)`
+              : 'No plant candidate'}
+          </strong>
           <div className="analysis-columns">
             <div>
               <span className="mini-heading">Plant candidates</span>
               {result.plantCandidates.map((candidate) => (
-                <p key={candidate.id}>{candidate.label}: {Math.round(candidate.confidence * 100)}%</p>
+                <p key={candidate.id}>
+                  {candidate.label}: {Math.round(candidate.confidence * 100)}%
+                </p>
               ))}
             </div>
             <div>
               <span className="mini-heading">Disease hints</span>
               {result.diseaseCandidates.map((candidate) => (
-                <p key={candidate.id}>{candidate.label}: {candidate.actions[0]}</p>
+                <p key={candidate.id}>
+                  {candidate.label}: {candidate.actions[0]}
+                </p>
               ))}
             </div>
           </div>

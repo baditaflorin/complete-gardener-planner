@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+command -v gitleaks >/dev/null || { echo "gitleaks is required"; exit 1; }
+command -v golangci-lint >/dev/null || { echo "golangci-lint is required"; exit 1; }
+command -v goimports >/dev/null || { echo "goimports is required"; exit 1; }
+
+npm run lint
+npm run fmt:check
+npm run typecheck
+gofmt -w cmd internal
+goimports -w cmd internal
+go vet ./cmd/... ./internal/...
+golangci-lint run ./cmd/... ./internal/...
+gitleaks protect --staged --verbose

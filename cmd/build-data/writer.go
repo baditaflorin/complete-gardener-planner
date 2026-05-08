@@ -1,3 +1,4 @@
+// Package main builds static garden planning artifacts for GitHub Pages.
 package main
 
 import (
@@ -13,14 +14,18 @@ import (
 
 func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
 	parent := filepath.Dir(output)
-	if err := os.MkdirAll(parent, 0o755); err != nil {
+	if err := os.MkdirAll(parent, 0o750); err != nil {
 		return fmt.Errorf("create output parent: %w", err)
 	}
 	tmp, err := os.MkdirTemp(parent, ".data-v1-*")
 	if err != nil {
 		return fmt.Errorf("create temp dir: %w", err)
 	}
-	defer os.RemoveAll(tmp)
+	defer func() {
+		if removeErr := os.RemoveAll(tmp); removeErr != nil {
+			fmt.Fprintf(os.Stderr, "cleanup temp dir: %v\n", removeErr)
+		}
+	}()
 
 	generatedAt := time.Now().UTC().Format(time.RFC3339)
 	summary := make(map[string]int, len(artifacts))
@@ -30,7 +35,7 @@ func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
 		if err != nil {
 			return fmt.Errorf("marshal %s: %w", artifact.Name, err)
 		}
-		if err := os.WriteFile(filepath.Join(tmp, artifact.Name), payload, 0o644); err != nil {
+		if err := os.WriteFile(filepath.Join(tmp, artifact.Name), payload, 0o600); err != nil {
 			return fmt.Errorf("write %s: %w", artifact.Name, err)
 		}
 		meta := Metadata{
@@ -47,7 +52,7 @@ func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
 			return fmt.Errorf("marshal metadata for %s: %w", artifact.Name, err)
 		}
 		metaName := strings.TrimSuffix(artifact.Name, ".json") + ".meta.json"
-		if err := os.WriteFile(filepath.Join(tmp, metaName), metaPayload, 0o644); err != nil {
+		if err := os.WriteFile(filepath.Join(tmp, metaName), metaPayload, 0o600); err != nil {
 			return fmt.Errorf("write %s: %w", metaName, err)
 		}
 		summary[artifact.Name] = artifact.RecordCount

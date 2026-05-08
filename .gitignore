@@ -12,6 +12,7 @@ dist
 dist-ssr
 dist-data
 coverage
+test-results
 tmp
 .env
 .env.*

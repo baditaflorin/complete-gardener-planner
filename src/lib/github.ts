@@ -7,9 +7,12 @@ export async function fetchLatestCommit(): Promise<GitHubCommit | null> {
   const controller = new AbortController()
   const timeout = window.setTimeout(() => controller.abort(), 2500)
   try {
-    const response = await fetch('https://api.github.com/repos/baditaflorin/complete-gardener-planner/commits/main', {
-      signal: controller.signal,
-    })
+    const response = await fetch(
+      'https://api.github.com/repos/baditaflorin/complete-gardener-planner/commits/main',
+      {
+        signal: controller.signal,
+      },
+    )
     if (!response.ok) {
       return null
     }

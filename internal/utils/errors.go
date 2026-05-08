@@ -1,9 +1,7 @@
+// Package utils contains small shared command helpers.
 package utils
 
-import (
-	"fmt"
-	"log"
-)
+import "log"
 
 // HandleErrorOrLogWithMessages is the command-edge helper requested by the project bootstrap.
 func HandleErrorOrLogWithMessages(err error, errMsg, successMsg string) {
@@ -14,11 +12,4 @@ func HandleErrorOrLogWithMessages(err error, errMsg, successMsg string) {
 	if successMsg != "" {
 		log.Print(successMsg)
 	}
-}
-
-func Wrap(err error, message string) error {
-	if err == nil {
-		return nil
-	}
-	return fmt.Errorf("%s: %w", message, err)
 }

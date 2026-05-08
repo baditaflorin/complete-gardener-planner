@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+make test
+make build
+test -f docs/index.html
+test -f docs/404.html
+make smoke

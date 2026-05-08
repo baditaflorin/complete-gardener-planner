@@ -21,11 +21,23 @@ export function DataPanel({ data, isFetching }: Props) {
         {isFetching ? <RefreshCw className="spin" size={20} /> : <Database size={20} />}
       </div>
       <dl className="metric-list">
-        <div><dt>Records</dt><dd>{totalRecords}</dd></div>
-        <div><dt>Generated</dt><dd>{newest.toLocaleDateString()}</dd></div>
-        <div><dt>Schema</dt><dd>{data.meta.plants.schema_version}</dd></div>
+        <div>
+          <dt>Records</dt>
+          <dd>{totalRecords}</dd>
+        </div>
+        <div>
+          <dt>Generated</dt>
+          <dd>{newest.toLocaleDateString()}</dd>
+        </div>
+        <div>
+          <dt>Schema</dt>
+          <dd>{data.meta.plants.schema_version}</dd>
+        </div>
       </dl>
-      <p className="muted">Includes plant database, companion graph, frost statistics, raster-like soil cells, weather normals, disease signatures, and yield coefficients.</p>
+      <p className="muted">
+        Includes plant database, companion graph, frost statistics, raster-like soil cells, weather normals,
+        disease signatures, and yield coefficients.
+      </p>
     </section>
   )
 }

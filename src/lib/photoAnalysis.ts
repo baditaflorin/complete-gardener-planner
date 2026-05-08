@@ -30,7 +30,12 @@ export async function analyzeGardenPhoto(
     .map((disease) => {
       const mildewCue = lowerName.includes('mildew') || pixels.brightness > 0.72
       const blightCue = lowerName.includes('blight') || (pixels.redRatio > 0.28 && pixels.greenRatio < 0.45)
-      const score = disease.id.includes('mildew') && mildewCue ? 0.74 : disease.id.includes('blight') && blightCue ? 0.68 : 0.24
+      const score =
+        disease.id.includes('mildew') && mildewCue
+          ? 0.74
+          : disease.id.includes('blight') && blightCue
+            ? 0.68
+            : 0.24
       return {
         id: disease.id,
         label: disease.label,
@@ -51,7 +56,7 @@ export async function analyzeGardenPhoto(
 async function loadOnnxRuntimeStatus() {
   try {
     const ort = await import('onnxruntime-web')
-    return `ONNX Runtime Web ready (${Boolean(ort.InferenceSession) ? 'adapter available' : 'fallback only'})`
+    return `ONNX Runtime Web ready (${ort.InferenceSession ? 'adapter available' : 'fallback only'})`
   } catch {
     return 'Heuristic offline classifier active'
   }

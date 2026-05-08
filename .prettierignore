@@ -1,0 +1,15 @@
+node_modules
+docs/assets
+docs/data
+docs/index.html
+docs/404.html
+docs/sw.js
+docs/manifest.webmanifest
+src/generated
+test-results
+coverage
+tmp
+dist
+dist-data
+package-lock.json
+*.wasm

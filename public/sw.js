@@ -12,13 +12,19 @@ const STATIC_DATA = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll([BASE, `${BASE}index.html`, ...STATIC_DATA.map((path) => `${BASE}${path}`)])),
+    caches
+      .open(CACHE_NAME)
+      .then((cache) =>
+        cache.addAll([BASE, `${BASE}index.html`, ...STATIC_DATA.map((path) => `${BASE}${path}`)]),
+      ),
   )
 })
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))),
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))),
   )
 })
 
@@ -28,12 +34,16 @@ self.addEventListener('fetch', (event) => {
     return
   }
   event.respondWith(
-    caches.match(event.request).then((cached) =>
-      cached || fetch(event.request).then((response) => {
-        const copy = response.clone()
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy))
-        return response
-      }).catch(() => caches.match(`${BASE}index.html`)),
+    caches.match(event.request).then(
+      (cached) =>
+        cached ||
+        fetch(event.request)
+          .then((response) => {
+            const copy = response.clone()
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy))
+            return response
+          })
+          .catch(() => caches.match(`${BASE}index.html`)),
     ),
   )
 })

@@ -6,7 +6,12 @@ export type SunCell = {
   intensity: number
 }
 
-export function buildSunMap(latitude: number, longitude: number, dateISO: string, shadePercent: number): SunCell[] {
+export function buildSunMap(
+  latitude: number,
+  longitude: number,
+  dateISO: string,
+  shadePercent: number,
+): SunCell[] {
   const date = new Date(dateISO)
   const times = SunCalc.getTimes(date, latitude, longitude)
   const sunrise = times.sunrise.getHours() + times.sunrise.getMinutes() / 60

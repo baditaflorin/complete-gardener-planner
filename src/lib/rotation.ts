@@ -12,7 +12,10 @@ const sequence = ['legume', 'leafy', 'fruiting', 'root', 'flower', 'cucurbit', '
 export function buildRotationPlan(plants: Plant[], selectedIds: string[]): RotationStep[] {
   const selected = selectedIds.map((id) => plants.find((plant) => plant.id === id)).filter(isPlant)
   const lastGroup = selected.at(0)?.rotation_group ?? 'leafy'
-  const start = Math.max(sequence.findIndex((group) => lastGroup.includes(group)), 0)
+  const start = Math.max(
+    sequence.findIndex((group) => lastGroup.includes(group)),
+    0,
+  )
 
   return Array.from({ length: 4 }, (_, index) => {
     const group = sequence[(start + index + 1) % sequence.length]
