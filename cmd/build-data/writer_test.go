@@ -13,7 +13,7 @@ func TestWriteArtifactsCreatesDataAndMetadata(t *testing.T) {
 		{Name: "sample.json", Schema: "sample.v1", RecordCount: 1, Data: []map[string]string{{"id": "a"}}},
 	}
 
-	if err := writeArtifacts(dir, "abc123", artifacts); err != nil {
+	if err := writeArtifacts(dir, "abc123", "2026-05-08T00:00:00Z", artifacts); err != nil {
 		t.Fatalf("writeArtifacts() error = %v", err)
 	}
 

@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
+func writeArtifacts(output, sourceCommit, generatedAt string, artifacts []Artifact) error {
 	parent := filepath.Dir(output)
 	if err := os.MkdirAll(parent, 0o750); err != nil {
 		return fmt.Errorf("create output parent: %w", err)
@@ -27,7 +27,9 @@ func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
 		}
 	}()
 
-	generatedAt := time.Now().UTC().Format(time.RFC3339)
+	if generatedAt == "" {
+		generatedAt = time.Now().UTC().Format(time.RFC3339)
+	}
 	summary := make(map[string]int, len(artifacts))
 
 	for _, artifact := range artifacts {
@@ -75,6 +77,19 @@ func writeArtifacts(output, sourceCommit string, artifacts []Artifact) error {
 	}
 	fmt.Println(string(result))
 	return nil
+}
+
+func readExistingMetadata(output string) (Metadata, error) {
+	// #nosec G304 -- output is a local generator directory controlled by the CLI caller.
+	payload, err := os.ReadFile(filepath.Join(output, "plants.meta.json"))
+	if err != nil {
+		return Metadata{}, err
+	}
+	var meta Metadata
+	if err := json.Unmarshal(payload, &meta); err != nil {
+		return Metadata{}, err
+	}
+	return meta, nil
 }
 
 func marshalStable(value any) ([]byte, error) {
