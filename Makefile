@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 GO_PACKAGES := ./cmd/... ./internal/...
 PAGES_PORT ?= 4173
+VERSION := $(shell node -p "require('./package.json').version")
 
 .PHONY: help install-hooks dev build data test test-integration smoke lint fmt pages-preview docker-build docker-push release compose-up compose-down clean hooks-pre-commit hooks-commit-msg hooks-pre-push security
 
@@ -57,9 +58,12 @@ docker-push: ## Mode B has no Docker image
 	@echo "Skipped: Mode B deploys only to GitHub Pages."
 
 release: build test smoke ## Tag a semver release after local checks
-	git tag v0.1.0
-	git push origin v0.1.0
-	gh release create v0.1.0 --title v0.1.0 --notes "Static Mode B v1 release with generated data artifacts."
+	rm -rf dist-data
+	mkdir -p dist-data
+	(cd docs && zip -qr ../dist-data/complete-gardener-planner-data-v$(VERSION).zip data/v1)
+	git tag v$(VERSION)
+	git push origin v$(VERSION)
+	gh release create v$(VERSION) dist-data/complete-gardener-planner-data-v$(VERSION).zip --title v$(VERSION) --notes "Static Mode B release with generated garden planning data artifacts."
 
 compose-up: ## Mode B has no compose stack
 	@echo "Skipped: Mode B deploys only to GitHub Pages."
