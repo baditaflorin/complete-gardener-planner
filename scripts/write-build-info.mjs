@@ -13,7 +13,7 @@ function run(command, fallback) {
 
 const existingPath = new URL('../src/generated/buildInfo.ts', import.meta.url)
 const existing = readExistingBuildInfo(existingPath)
-const reuse = process.env.REUSE_BUILD_INFO === '1' && existing
+const reuse = process.env.REFRESH_BUILD_INFO !== '1' && existing
 
 const info = {
   version: pkg.version,

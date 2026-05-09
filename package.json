@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "REUSE_BUILD_INFO=1 node scripts/write-build-info.mjs",
+    "prebuild": "node scripts/write-build-info.mjs",
     "build": "tsc -b && node scripts/clean-pages-build.mjs && vite build && go run ./cmd/build-data --output docs/data/v1 --reuse_metadata && node scripts/copy-404.mjs",
     "typecheck": "tsc -b",
     "lint": "eslint .",

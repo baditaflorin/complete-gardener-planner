@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-08T09:18:33Z",
-  "source_commit": "a0004ad",
+  "generated_at": "2026-05-09T10:34:37Z",
+  "source_commit": "17e5bbd",
   "schema_version": "weather-normals.v1",
   "record_count": 3,
   "input_checksums": {
