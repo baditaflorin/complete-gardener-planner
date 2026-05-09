@@ -30,7 +30,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -188,7 +189,8 @@ fieldset {
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   min-height: 40px;
   margin-top: 6px;
@@ -197,6 +199,11 @@ select {
   border-radius: 8px;
   background: #fff;
   color: #18211b;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
 }
 
 input[type='range'] {
@@ -280,6 +287,49 @@ input[type='range'] {
   align-items: center;
   gap: 8px;
   color: #38543f;
+}
+
+.photo-drop-active {
+  border-color: #2f7b4a;
+  background-color: #e2f3e4;
+}
+
+.evidence-grid,
+.action-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.evidence-grid {
+  margin-top: 12px;
+}
+
+.evidence-actions,
+.action-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.evidence-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.action-panel {
+  grid-column: span 1;
+}
+
+.danger-button {
+  border-color: #d8aaa4;
+  background: #fff2f0;
+  color: #6c231c;
+}
+
+.hidden-file {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .analysis-result {
@@ -555,5 +605,37 @@ dd {
 
   .sun-map {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .evidence-actions,
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .top-actions,
+  .photo-panel,
+  .action-panel,
+  .footer,
+  .icon-button {
+    display: none !important;
+  }
+
+  .app-shell {
+    width: 100%;
+    padding: 0;
+  }
+
+  .workspace-grid,
+  .dashboard-grid,
+  .crop-card-grid,
+  .edge-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .planner-panel {
+    break-inside: avoid;
+    box-shadow: none;
   }
 }

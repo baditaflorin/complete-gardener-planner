@@ -54,6 +54,33 @@ export async function analyzeGardenPhoto(
   }
 }
 
+export function analyzeGardenText(params: {
+  text: string
+  plants: Plant[]
+  diseases: DiseaseSignature[]
+  filename?: string
+  mediaType?: string
+  sourceUrl?: string
+}): PhotoAnalysisResult {
+  const started = performance.now()
+  const inference = analyzeGardenEvidence(
+    {
+      filename: params.filename ?? 'pasted-garden-note.txt',
+      mediaType: params.mediaType ?? 'text/plain',
+      sizeBytes: new Blob([params.text]).size,
+      text: params.text,
+      sourceUrl: params.sourceUrl,
+      visual: null,
+    },
+    { plants: params.plants, diseases: params.diseases, correctionMemory: currentCorrectionMemory() },
+  )
+  return {
+    ...inference,
+    modelStatus: 'Text evidence classifier active',
+    performanceMs: Math.round((performance.now() - started) * 10) / 10,
+  }
+}
+
 async function loadOnnxRuntimeStatus() {
   if (cachedOnnxStatus) {
     return cachedOnnxStatus

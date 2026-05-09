@@ -1,80 +1,56 @@
 import { useEffect, useMemo, useState } from 'react'
 import { HeartHandshake, Leaf, RefreshCw, Sprout, Upload } from 'lucide-react'
-import { buildSunMap, averageSunHours } from '../../lib/sun'
-import { buildRotationPlan, companionSummary } from '../../lib/rotation'
-import { calculateWateringSchedule } from '../../lib/irrigation'
-import { projectHarvests } from '../../lib/yield'
-import { defaultGardenPlan, loadGardenPlan, saveGardenPlan } from '../../lib/storage'
+import { clearGardenPlan, loadGardenPlan, saveGardenPlan } from '../../lib/storage'
 import { useStaticData } from '../../lib/staticData'
 import type { GardenPlan } from '../../types/domain'
+import { decodeShareHash } from '../../lib/planIO'
+import {
+  defaultGardenPlan,
+  labelForPlant,
+  nearestSoilCell,
+  normalizeGardenPlan,
+  parseBoundedNumber,
+  toggleCrop,
+  withSuggestedCrops,
+} from '../../lib/planModel'
+import { derivePlannerOutputs } from '../../lib/plannerDerived'
 import { DataPanel } from './components/DataPanel'
 import { Footer } from './components/Footer'
 import { PhotoAnalyzer } from './components/PhotoAnalyzer'
+import { PlanActions } from './components/PlanActions'
 
 export function PlannerApp() {
   const { data, isLoading, error, refetch, isFetching } = useStaticData()
   const [plan, setPlan] = useState<GardenPlan>(defaultGardenPlan)
+  const [loaded, setLoaded] = useState(false)
   const [saved, setSaved] = useState('Loading local plan')
 
   useEffect(() => {
     void loadGardenPlan().then((stored) => {
-      setPlan(stored)
-      setSaved('Saved locally in this browser')
+      const shared = decodeShareHash(window.location.hash)
+      setPlan(shared ?? stored)
+      setSaved(shared ? 'Loaded shared plan from URL' : 'Saved locally in this browser')
+      setLoaded(true)
     })
   }, [])
 
   useEffect(() => {
+    if (!loaded) {
+      return
+    }
     const timer = window.setTimeout(() => {
       void saveGardenPlan(plan).then(() => setSaved('Saved locally in this browser'))
     }, 350)
     return () => window.clearTimeout(timer)
-  }, [plan])
+  }, [loaded, plan])
 
-  const selectedPlants = useMemo(
-    () => data?.plants.filter((plant) => plan.selectedCropIds.includes(plant.id)) ?? [],
-    [data?.plants, plan.selectedCropIds],
-  )
-  const frostZone = data?.frost.find((zone) => zone.zone_id === plan.frostZoneId) ?? data?.frost[0]
-  const soil = data?.soilCells.find((cell) => cell.id === plan.soilCellId) ?? data?.soilCells[0]
-  const weather =
-    data?.weatherNormals.find((normal) => normal.zone_id === plan.frostZoneId) ?? data?.weatherNormals[0]
-  const monthIndex = Math.max(0, new Date(plan.plantingDateISO).getMonth())
-  const sunCells = buildSunMap(plan.latitude, plan.longitude, plan.plantingDateISO, plan.shadePercent)
-  const sunHours = averageSunHours(sunCells)
-
-  const rotation = data ? buildRotationPlan(data.plants, plan.selectedCropIds) : []
-  const companions = data ? companionSummary(data.companions, plan.selectedCropIds) : []
-  const watering =
-    data && soil && weather
-      ? calculateWateringSchedule({
-          plants: data.plants,
-          selectedIds: plan.selectedCropIds,
-          soil,
-          weather,
-          bedAreaSqm: plan.bedAreaSqm,
-          monthIndex,
-        })
-      : null
-  const harvests =
-    data && soil
-      ? projectHarvests({
-          plants: data.plants,
-          selectedIds: plan.selectedCropIds,
-          model: data.yieldModel,
-          soil,
-          bedAreaSqm: plan.bedAreaSqm,
-          plantingDateISO: plan.plantingDateISO,
-          sunHours,
-          waterBalanceMM: watering?.weeklyNeedMM ?? 0,
-          diseasePressure: plan.diseasePressure,
-        })
-      : []
+  const outputs = useMemo(() => (data ? derivePlannerOutputs(data, plan) : null), [data, plan])
 
   function applyFrostZone(zoneID: string) {
     const nextZone = data?.frost.find((zone) => zone.zone_id === zoneID)
     const nearestSoil = nextZone
       ? nearestSoilCell(data?.soilCells, nextZone.latitude, nextZone.longitude)
-      : soil
+      : outputs?.soil
     setPlan((current) => ({
       ...current,
       frostZoneId: zoneID,
@@ -85,10 +61,20 @@ export function PlannerApp() {
   }
 
   function applySuggestedCrops(cropIds: string[]) {
-    setPlan((current) => ({
-      ...current,
-      selectedCropIds: Array.from(new Set([...current.selectedCropIds, ...cropIds])).sort(),
-    }))
+    setPlan((current) => withSuggestedCrops(current, cropIds))
+    setSaved('Applied crop guesses')
+  }
+
+  function importPlan(nextPlan: GardenPlan) {
+    setPlan(normalizeGardenPlan(nextPlan))
+    setSaved('Imported state file')
+  }
+
+  function resetPlan() {
+    void clearGardenPlan()
+    window.history.replaceState(null, '', window.location.pathname)
+    setPlan(defaultGardenPlan)
+    setSaved('Started fresh')
   }
 
   if (isLoading) {
@@ -99,7 +85,7 @@ export function PlannerApp() {
     )
   }
 
-  if (error || !data || !soil || !weather || !frostZone) {
+  if (error || !data || !outputs) {
     return (
       <main className="app-shell">
         <section className="notice notice-error" role="alert">
@@ -111,6 +97,9 @@ export function PlannerApp() {
       </main>
     )
   }
+
+  const { selectedPlants, frostZone, soil, sunCells, sunHours, rotation, companions, watering, harvests } =
+    outputs
 
   return (
     <main className="app-shell">
@@ -192,7 +181,12 @@ export function PlannerApp() {
                 min="1"
                 step="0.5"
                 value={plan.bedAreaSqm}
-                onChange={(event) => setPlan({ ...plan, bedAreaSqm: Number(event.target.value) })}
+                onChange={(event) =>
+                  setPlan({
+                    ...plan,
+                    bedAreaSqm: parseBoundedNumber(event.target.value, 0.5, 10000, plan.bedAreaSqm),
+                  })
+                }
               />
             </label>
             <label>
@@ -342,7 +336,7 @@ export function PlannerApp() {
             {companions.map((edge) => (
               <article key={`${edge.source_id}-${edge.target_id}`} className={`edge edge-${edge.kind}`}>
                 <strong>
-                  {labelFor(data.plants, edge.source_id)} + {labelFor(data.plants, edge.target_id)}
+                  {labelForPlant(data.plants, edge.source_id)} + {labelForPlant(data.plants, edge.target_id)}
                 </strong>
                 <span>
                   {edge.kind}: {edge.reason}
@@ -353,6 +347,14 @@ export function PlannerApp() {
         </section>
 
         <DataPanel data={data} isFetching={isFetching} />
+        <PlanActions
+          plan={plan}
+          data={data}
+          outputs={outputs}
+          onImportPlan={importPlan}
+          onResetPlan={resetPlan}
+          onStatus={setSaved}
+        />
       </section>
 
       <section className="planner-panel" aria-labelledby="selected-title">
@@ -394,30 +396,4 @@ export function PlannerApp() {
       <Footer />
     </main>
   )
-}
-
-function toggleCrop(plan: GardenPlan, cropId: string): GardenPlan {
-  const selected = new Set(plan.selectedCropIds)
-  if (selected.has(cropId)) {
-    selected.delete(cropId)
-  } else {
-    selected.add(cropId)
-  }
-  return { ...plan, selectedCropIds: Array.from(selected) }
-}
-
-function labelFor(plants: { id: string; common_name: string }[], id: string) {
-  return plants.find((plant) => plant.id === id)?.common_name ?? id
-}
-
-function nearestSoilCell<T extends { latitude: number; longitude: number }>(
-  cells: T[] | undefined,
-  latitude: number,
-  longitude: number,
-) {
-  return [...(cells ?? [])].sort((left, right) => {
-    const leftDistance = Math.hypot(left.latitude - latitude, left.longitude - longitude)
-    const rightDistance = Math.hypot(right.latitude - latitude, right.longitude - longitude)
-    return leftDistance - rightDistance
-  })[0]
 }
