@@ -12,7 +12,7 @@ test('loads the Pages planner and supports one happy path', async ({ page }) => 
     'href',
     'https://www.paypal.com/paypalme/florinbadita',
   )
-  await expect(page.getByText(/Version 0.2.0/i)).toBeVisible()
+  await expect(page.getByText(/Version 0.3.0/i)).toBeVisible()
   await expect(page.getByText(/Commit/i)).toBeVisible()
   await expect(page.getByRole('heading', { name: /Static data v1/i })).toBeVisible()
 
