@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PORT="${PAGES_PORT:-$(python3 - <<'PY'
-import socket
-with socket.socket() as s:
-    s.bind(("127.0.0.1", 0))
-    print(s.getsockname()[1])
-PY
-)}"
+PORT="${PAGES_PORT:-$((43000 + RANDOM % 20000))}"
 TMP_DIR="$(mktemp -d)"
 SERVER_PID=""
 
@@ -22,7 +16,7 @@ trap cleanup EXIT
 npm run build
 mkdir -p "$TMP_DIR/complete-gardener-planner"
 cp -R docs/. "$TMP_DIR/complete-gardener-planner/"
-python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$TMP_DIR" >/tmp/complete-gardener-smoke.log 2>&1 &
+PAGES_ROOT="$TMP_DIR" node scripts/static-pages-server.mjs "$PORT" >/tmp/complete-gardener-smoke.log 2>&1 &
 SERVER_PID="$!"
 sleep 0.2
 if ! kill -0 "$SERVER_PID" >/dev/null 2>&1; then

@@ -9,4 +9,4 @@ mkdir -p "$TMP_DIR/complete-gardener-planner"
 cp -R docs/. "$TMP_DIR/complete-gardener-planner/"
 
 echo "Serving http://127.0.0.1:${PORT}/complete-gardener-planner/"
-python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$TMP_DIR"
+PAGES_ROOT="$TMP_DIR" node scripts/static-pages-server.mjs "$PORT"
