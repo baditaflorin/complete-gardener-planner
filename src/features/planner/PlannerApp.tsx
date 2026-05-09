@@ -70,6 +70,27 @@ export function PlannerApp() {
         })
       : []
 
+  function applyFrostZone(zoneID: string) {
+    const nextZone = data?.frost.find((zone) => zone.zone_id === zoneID)
+    const nearestSoil = nextZone
+      ? nearestSoilCell(data?.soilCells, nextZone.latitude, nextZone.longitude)
+      : soil
+    setPlan((current) => ({
+      ...current,
+      frostZoneId: zoneID,
+      latitude: nextZone?.latitude ?? current.latitude,
+      longitude: nextZone?.longitude ?? current.longitude,
+      soilCellId: nearestSoil?.id ?? current.soilCellId,
+    }))
+  }
+
+  function applySuggestedCrops(cropIds: string[]) {
+    setPlan((current) => ({
+      ...current,
+      selectedCropIds: Array.from(new Set([...current.selectedCropIds, ...cropIds])).sort(),
+    }))
+  }
+
   if (isLoading) {
     return (
       <main className="app-shell">
@@ -135,10 +156,7 @@ export function PlannerApp() {
             </label>
             <label>
               Frost zone
-              <select
-                value={plan.frostZoneId}
-                onChange={(event) => setPlan({ ...plan, frostZoneId: event.target.value })}
-              >
+              <select value={plan.frostZoneId} onChange={(event) => applyFrostZone(event.target.value)}>
                 {data.frost.map((zone) => (
                   <option key={zone.zone_id} value={zone.zone_id}>
                     {zone.label}
@@ -209,7 +227,11 @@ export function PlannerApp() {
           </fieldset>
         </section>
 
-        <PhotoAnalyzer plants={data.plants} diseases={data.diseases} />
+        <PhotoAnalyzer
+          plants={data.plants}
+          diseases={data.diseases}
+          onApplySuggestedCrops={applySuggestedCrops}
+        />
       </section>
 
       <section className="dashboard-grid">
@@ -386,4 +408,16 @@ function toggleCrop(plan: GardenPlan, cropId: string): GardenPlan {
 
 function labelFor(plants: { id: string; common_name: string }[], id: string) {
   return plants.find((plant) => plant.id === id)?.common_name ?? id
+}
+
+function nearestSoilCell<T extends { latitude: number; longitude: number }>(
+  cells: T[] | undefined,
+  latitude: number,
+  longitude: number,
+) {
+  return [...(cells ?? [])].sort((left, right) => {
+    const leftDistance = Math.hypot(left.latitude - latitude, left.longitude - longitude)
+    const rightDistance = Math.hypot(right.latitude - latitude, right.longitude - longitude)
+    return leftDistance - rightDistance
+  })[0]
 }

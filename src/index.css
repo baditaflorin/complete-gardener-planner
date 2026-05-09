@@ -288,6 +288,14 @@ input[type='range'] {
   gap: 10px;
 }
 
+.analysis-progress,
+.analysis-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .analysis-columns {
   align-items: flex-start;
   gap: 16px;
@@ -303,6 +311,44 @@ input[type='range'] {
   color: #5e6d61;
   font-size: 14px;
   line-height: 1.45;
+}
+
+.candidate-detail {
+  padding: 8px 0;
+  border-bottom: 1px solid #e2eadf;
+}
+
+.candidate-detail summary {
+  cursor: pointer;
+  color: #1d3323;
+  font-weight: 760;
+}
+
+.candidate-detail p {
+  margin: 6px 0 0;
+}
+
+.warning-text {
+  color: #8a3d22 !important;
+}
+
+.apply-suggestions {
+  justify-self: start;
+  background: #e8f5ec;
+  border-color: #7bb28c;
+}
+
+.debug-panel {
+  max-height: 180px;
+  overflow: auto;
+  margin: 4px 0 0;
+  padding: 10px;
+  border: 1px solid #cbd8ca;
+  border-radius: 8px;
+  background: #111a14;
+  color: #dff2e3;
+  font-size: 12px;
+  text-align: left;
 }
 
 .sun-map {
