@@ -1,0 +1,7 @@
+{
+  "useful": true,
+  "expectedPlantIds": [],
+  "expectedDiseaseIds": [],
+  "expectedDiagnostics": ["weather-csv"],
+  "expectedWeatherFields": ["precipitation_mm", "et0_fao_evapotranspiration", "temperature_2m_mean"]
+}

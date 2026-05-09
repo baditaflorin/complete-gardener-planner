@@ -1,0 +1,8 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["pepper"],
+  "expectedDiseaseIds": [],
+  "expectedSuggestedCropIds": ["pepper"],
+  "forbiddenHighConfidencePlantIds": ["tomato"],
+  "expectedDiagnostics": ["conflicting-evidence"]
+}

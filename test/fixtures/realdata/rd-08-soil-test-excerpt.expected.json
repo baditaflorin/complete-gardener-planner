@@ -1,0 +1,8 @@
+{
+  "useful": true,
+  "expectedPlantIds": [],
+  "expectedDiseaseIds": [],
+  "expectedDiagnostics": ["soil-report", "alkaline-soil"],
+  "expectedSoilPH": 7.4,
+  "expectedOrganicMatter": 3.1
+}

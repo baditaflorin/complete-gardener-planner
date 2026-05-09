@@ -1,0 +1,13 @@
+{
+  "id": "rd-09-weather-csv-excerpt",
+  "source_url": "https://open-meteo.com/en/docs/historical-weather-api",
+  "input_kind": "weather_csv_excerpt",
+  "title": "Weather normals CSV excerpt",
+  "evidence": {
+    "filename": "bucharest-garden-weather.csv",
+    "mediaType": "text/csv",
+    "sizeBytes": 182000,
+    "text": "date,precipitation_mm,et0_fao_evapotranspiration,temperature_2m_mean 2026-05-01,4.2,3.8,18.4",
+    "visual": null
+  }
+}

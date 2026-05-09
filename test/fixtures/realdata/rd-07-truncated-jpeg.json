@@ -1,0 +1,14 @@
+{
+  "id": "rd-07-truncated-jpeg",
+  "source_url": "local-chat-transfer",
+  "input_kind": "partial_input",
+  "title": "Truncated JPEG transferred through chat",
+  "evidence": {
+    "filename": "lettuce_patch_partial_upload.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 8421,
+    "text": "partial upload from chat; image ended before transfer completed",
+    "visual": null,
+    "decodeError": "unexpected end of file"
+  }
+}

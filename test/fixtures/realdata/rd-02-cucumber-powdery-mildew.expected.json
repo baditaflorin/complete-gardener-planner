@@ -1,0 +1,9 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["cucumber"],
+  "expectedDiseaseIds": ["powdery-mildew"],
+  "expectedSuggestedCropIds": ["cucumber"],
+  "minimumTopPlantConfidence": 0.68,
+  "minimumTopDiseaseConfidence": 0.68,
+  "expectedDiagnostics": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "rd-01-clean-tomato-leaf",
+  "source_url": "https://plants.ces.ncsu.edu/plants/solanum-lycopersicum/",
+  "input_kind": "single_plant_photo",
+  "title": "Clean tomato leaf profile photo",
+  "evidence": {
+    "filename": "IMG_4821_green_leaf_profile.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 1840000,
+    "text": "Solanum lycopersicum tomato leaf from plant profile",
+    "visual": {
+      "redRatio": 0.23,
+      "greenRatio": 0.52,
+      "blueRatio": 0.25,
+      "brightness": 0.48,
+      "whitePatchRatio": 0.02,
+      "brownSpotRatio": 0.01,
+      "yellowRatio": 0.05
+    }
+  }
+}

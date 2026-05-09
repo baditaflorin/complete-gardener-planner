@@ -1,0 +1,8 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["basil"],
+  "expectedDiseaseIds": ["downy-mildew"],
+  "expectedSuggestedCropIds": ["basil"],
+  "minimumTopDiseaseConfidence": 0.7,
+  "expectedDiagnostics": []
+}

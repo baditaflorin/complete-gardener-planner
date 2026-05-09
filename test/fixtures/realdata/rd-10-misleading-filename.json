@@ -1,0 +1,21 @@
+{
+  "id": "rd-10-misleading-filename",
+  "source_url": "local-user-misnamed-file",
+  "input_kind": "adversarial_filename",
+  "title": "Misleading tomato filename on pepper-like plant",
+  "evidence": {
+    "filename": "tomato_leaf_problem.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 1180000,
+    "text": "pepper plant narrow glossy leaves capsicum annuum no tomato fruit",
+    "visual": {
+      "redRatio": 0.25,
+      "greenRatio": 0.5,
+      "blueRatio": 0.25,
+      "brightness": 0.51,
+      "whitePatchRatio": 0.01,
+      "brownSpotRatio": 0.02,
+      "yellowRatio": 0.04
+    }
+  }
+}

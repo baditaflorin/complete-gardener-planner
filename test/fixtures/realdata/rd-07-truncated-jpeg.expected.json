@@ -1,0 +1,6 @@
+{
+  "useful": false,
+  "expectedErrorKind": "corrupt-image",
+  "expectedDiagnostics": ["corrupt-image"],
+  "expectedNowWhatIncludes": "upload the original photo"
+}

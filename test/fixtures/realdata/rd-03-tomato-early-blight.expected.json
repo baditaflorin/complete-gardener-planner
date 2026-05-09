@@ -1,0 +1,9 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["tomato"],
+  "expectedDiseaseIds": ["early-blight"],
+  "expectedSuggestedCropIds": ["tomato"],
+  "minimumTopPlantConfidence": 0.72,
+  "minimumTopDiseaseConfidence": 0.72,
+  "expectedDiagnostics": []
+}

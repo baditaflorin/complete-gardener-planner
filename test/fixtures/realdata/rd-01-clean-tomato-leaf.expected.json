@@ -1,0 +1,8 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["tomato"],
+  "expectedDiseaseIds": [],
+  "expectedSuggestedCropIds": ["tomato"],
+  "minimumTopPlantConfidence": 0.6,
+  "expectedDiagnostics": []
+}

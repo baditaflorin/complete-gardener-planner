@@ -1,0 +1,6 @@
+{
+  "useful": false,
+  "expectedErrorKind": "unsupported-format",
+  "expectedDiagnostics": ["unsupported-format"],
+  "expectedNowWhatIncludes": "JPEG or PNG"
+}

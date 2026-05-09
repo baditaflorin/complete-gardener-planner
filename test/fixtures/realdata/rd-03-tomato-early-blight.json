@@ -1,0 +1,21 @@
+{
+  "id": "rd-03-tomato-early-blight",
+  "source_url": "https://blogs.cornell.edu/livegpath/gallery/tomato/early-blight/",
+  "input_kind": "disease_closeup",
+  "title": "Tomato early blight lesion image",
+  "evidence": {
+    "filename": "tomato_leaf_brown_concentric_spots.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 1240000,
+    "text": "tomato lower leaves brown concentric target spots yellow halo early blight",
+    "visual": {
+      "redRatio": 0.34,
+      "greenRatio": 0.34,
+      "blueRatio": 0.32,
+      "brightness": 0.42,
+      "whitePatchRatio": 0.01,
+      "brownSpotRatio": 0.31,
+      "yellowRatio": 0.18
+    }
+  }
+}

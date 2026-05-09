@@ -1,0 +1,13 @@
+{
+  "id": "rd-08-soil-test-excerpt",
+  "source_url": "https://extension.umd.edu/resource/understanding-your-soil-test-report",
+  "input_kind": "soil_report_excerpt",
+  "title": "Extension soil report excerpt",
+  "evidence": {
+    "filename": "soil-test-raised-bed.pdf",
+    "mediaType": "application/pdf",
+    "sizeBytes": 142000,
+    "text": "garden soil test pH 7.4 organic matter 3.1 percent phosphorus high potassium medium recommendation add compost avoid lime",
+    "visual": null
+  }
+}

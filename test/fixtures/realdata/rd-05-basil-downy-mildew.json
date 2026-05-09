@@ -1,0 +1,21 @@
+{
+  "id": "rd-05-basil-downy-mildew",
+  "source_url": "https://ephytia.inra.fr/en/C/25776/VigiHorti-Basil-downy-mildew",
+  "input_kind": "disease_closeup",
+  "title": "Basil downy mildew reference",
+  "evidence": {
+    "filename": "basil_yellow_angular_leaf_underside_fuzz.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 890000,
+    "text": "basil downy mildew angular yellow lesions gray underside fuzz",
+    "visual": {
+      "redRatio": 0.29,
+      "greenRatio": 0.39,
+      "blueRatio": 0.32,
+      "brightness": 0.58,
+      "whitePatchRatio": 0.09,
+      "brownSpotRatio": 0.07,
+      "yellowRatio": 0.27
+    }
+  }
+}

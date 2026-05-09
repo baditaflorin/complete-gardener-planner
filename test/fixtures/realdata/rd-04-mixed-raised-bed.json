@@ -1,0 +1,21 @@
+{
+  "id": "rd-04-mixed-raised-bed",
+  "source_url": "https://en.wikipedia.org/wiki/Raised-bed_gardening",
+  "input_kind": "mixed_bed_photo",
+  "title": "Mixed raised bed with vegetables and flowers",
+  "evidence": {
+    "filename": "community_garden_raised_bed_mixed_crops.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 3260000,
+    "text": "raised bed with tomatoes basil lettuce marigolds beans and mulch",
+    "visual": {
+      "redRatio": 0.27,
+      "greenRatio": 0.49,
+      "blueRatio": 0.24,
+      "brightness": 0.55,
+      "whitePatchRatio": 0.03,
+      "brownSpotRatio": 0.08,
+      "yellowRatio": 0.16
+    }
+  }
+}

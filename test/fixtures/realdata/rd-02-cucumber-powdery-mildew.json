@@ -1,0 +1,21 @@
+{
+  "id": "rd-02-cucumber-powdery-mildew",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Sphaerotheca_fusca_on_Cucumber_leaves.jpg",
+  "input_kind": "disease_closeup",
+  "title": "Cucumber leaves with powdery mildew",
+  "evidence": {
+    "filename": "Sphaerotheca_fusca_on_Cucumber_leaves.jpg",
+    "mediaType": "image/jpeg",
+    "sizeBytes": 967000,
+    "text": "cucumber leaves white powder mildew patches",
+    "visual": {
+      "redRatio": 0.25,
+      "greenRatio": 0.41,
+      "blueRatio": 0.34,
+      "brightness": 0.73,
+      "whitePatchRatio": 0.28,
+      "brownSpotRatio": 0.03,
+      "yellowRatio": 0.09
+    }
+  }
+}

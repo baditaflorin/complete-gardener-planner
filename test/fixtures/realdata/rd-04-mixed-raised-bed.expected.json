@@ -1,0 +1,8 @@
+{
+  "useful": true,
+  "expectedPlantIds": ["tomato", "basil", "lettuce", "bean", "marigold"],
+  "expectedDiseaseIds": [],
+  "expectedSuggestedCropIds": ["tomato", "basil", "lettuce", "bean", "marigold"],
+  "minimumSuggestedCropCount": 4,
+  "expectedDiagnostics": ["mixed-bed"]
+}

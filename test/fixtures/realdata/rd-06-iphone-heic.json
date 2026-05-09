@@ -1,0 +1,13 @@
+{
+  "id": "rd-06-iphone-heic",
+  "source_url": "local-user-phone-camera",
+  "input_kind": "unsupported_format",
+  "title": "iPhone HEIC garden photo",
+  "evidence": {
+    "filename": "IMG_9042.HEIC",
+    "mediaType": "image/heic",
+    "sizeBytes": 2780000,
+    "text": "balcony tomato plant photo from iPhone",
+    "visual": null
+  }
+}
