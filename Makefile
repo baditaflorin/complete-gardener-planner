@@ -24,8 +24,9 @@ test: ## Run unit tests
 	npm test
 	go test $(GO_PACKAGES)
 
-test-integration: ## Integration test placeholder for future data importers
-	@echo "No integration suite is required for Mode B v1."
+test-integration: ## Run real-data fixture and Pages interaction tests
+	npm test -- src/lib/inference/fixtures.test.ts src/lib/planIO.test.ts
+	./scripts/smoke.sh
 
 smoke: ## Build, serve docs like Pages, and run Playwright smoke tests
 	./scripts/smoke.sh

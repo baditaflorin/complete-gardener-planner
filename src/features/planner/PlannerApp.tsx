@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { HeartHandshake, Leaf, RefreshCw, Sprout, Upload } from 'lucide-react'
+import { HeartHandshake, RefreshCw, Sprout, Upload } from 'lucide-react'
 import { clearGardenPlan, loadGardenPlan, saveGardenPlan } from '../../lib/storage'
 import { useStaticData } from '../../lib/staticData'
 import type { GardenPlan } from '../../types/domain'
@@ -9,13 +9,12 @@ import {
   labelForPlant,
   nearestSoilCell,
   normalizeGardenPlan,
-  parseBoundedNumber,
-  toggleCrop,
   withSuggestedCrops,
 } from '../../lib/planModel'
 import { derivePlannerOutputs } from '../../lib/plannerDerived'
 import { DataPanel } from './components/DataPanel'
 import { Footer } from './components/Footer'
+import { GardenSetupPanel } from './components/GardenSetupPanel'
 import { PhotoAnalyzer } from './components/PhotoAnalyzer'
 import { PlanActions } from './components/PlanActions'
 
@@ -90,6 +89,10 @@ export function PlannerApp() {
       <main className="app-shell">
         <section className="notice notice-error" role="alert">
           <strong>Static data could not be loaded.</strong>
+          <span>
+            {error instanceof Error ? error.message : 'The browser could not read the static data cache.'}
+          </span>
+          <span>Check the network connection, then retry the versioned data artifacts.</span>
           <button className="icon-button text-button" type="button" onClick={() => void refetch()}>
             <RefreshCw size={16} /> Retry
           </button>
@@ -129,97 +132,13 @@ export function PlannerApp() {
       </header>
 
       <section className="workspace-grid">
-        <section className="planner-panel planner-panel-wide" aria-labelledby="bed-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Garden setup</p>
-              <h2 id="bed-title">Plan the next planting window</h2>
-            </div>
-            <span className="status-pill">{saved}</span>
-          </div>
-
-          <div className="controls-grid">
-            <label>
-              Garden name
-              <input value={plan.name} onChange={(event) => setPlan({ ...plan, name: event.target.value })} />
-            </label>
-            <label>
-              Frost zone
-              <select value={plan.frostZoneId} onChange={(event) => applyFrostZone(event.target.value)}>
-                {data.frost.map((zone) => (
-                  <option key={zone.zone_id} value={zone.zone_id}>
-                    {zone.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Soil cell
-              <select
-                value={plan.soilCellId}
-                onChange={(event) => setPlan({ ...plan, soilCellId: event.target.value })}
-              >
-                {data.soilCells.map((cell) => (
-                  <option key={cell.id} value={cell.id}>
-                    {cell.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Planting date
-              <input
-                type="date"
-                value={plan.plantingDateISO}
-                onChange={(event) => setPlan({ ...plan, plantingDateISO: event.target.value })}
-              />
-            </label>
-            <label>
-              Bed area, sqm
-              <input
-                type="number"
-                min="1"
-                step="0.5"
-                value={plan.bedAreaSqm}
-                onChange={(event) =>
-                  setPlan({
-                    ...plan,
-                    bedAreaSqm: parseBoundedNumber(event.target.value, 0.5, 10000, plan.bedAreaSqm),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Shade, percent
-              <input
-                type="range"
-                min="0"
-                max="70"
-                value={plan.shadePercent}
-                onChange={(event) => setPlan({ ...plan, shadePercent: Number(event.target.value) })}
-              />
-              <span>{plan.shadePercent}% shade</span>
-            </label>
-          </div>
-
-          <fieldset className="crop-picker">
-            <legend>Crops in this bed</legend>
-            {data.plants.map((plant) => (
-              <label
-                key={plant.id}
-                className={plan.selectedCropIds.includes(plant.id) ? 'crop-chip selected' : 'crop-chip'}
-              >
-                <input
-                  type="checkbox"
-                  checked={plan.selectedCropIds.includes(plant.id)}
-                  onChange={() => setPlan((current) => toggleCrop(current, plant.id))}
-                />
-                <Leaf size={15} />
-                {plant.common_name}
-              </label>
-            ))}
-          </fieldset>
-        </section>
+        <GardenSetupPanel
+          data={data}
+          plan={plan}
+          saved={saved}
+          onPlanChange={setPlan}
+          onFrostZoneChange={applyFrostZone}
+        />
 
         <PhotoAnalyzer
           plants={data.plants}

@@ -67,7 +67,7 @@ func writeArtifacts(output, sourceCommit, generatedAt string, artifacts []Artifa
 		return fmt.Errorf("publish output: %w", err)
 	}
 
-	result, err := marshalStable(map[string]any{
+	result, err := marshalStable(map[string]interface{}{
 		"output":       output,
 		"sourceCommit": sourceCommit,
 		"artifacts":    summary,
@@ -92,7 +92,7 @@ func readExistingMetadata(output string) (Metadata, error) {
 	return meta, nil
 }
 
-func marshalStable(value any) ([]byte, error) {
+func marshalStable(value interface{}) ([]byte, error) {
 	payload, err := json.MarshalIndent(value, "", "  ")
 	if err != nil {
 		return nil, err

@@ -96,5 +96,5 @@ type Artifact struct {
 	Name        string
 	Schema      string
 	RecordCount int
-	Data        any
+	Data        interface{}
 }

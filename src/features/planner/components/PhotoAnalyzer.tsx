@@ -1,11 +1,12 @@
-import { useMemo, useReducer, useRef, useState, type ClipboardEvent, type DragEvent } from 'react'
-import { Camera, Check, ClipboardCopy, FileText, ImageUp, Link2, X } from 'lucide-react'
+import { useReducer, useRef, useState, type ClipboardEvent, type DragEvent } from 'react'
+import { Camera, Check, FileText, ImageUp, Link2, X } from 'lucide-react'
 import { rememberCropCorrection } from '../../../lib/inference/corrections'
 import { describeCaughtError } from '../../../lib/inference/errors'
 import { photoAnalysisReducer, type PhotoAnalysisState } from '../../../lib/inference/state'
 import { analyzeGardenPhoto, analyzeGardenText, type PhotoAnalysisResult } from '../../../lib/photoAnalysis'
 import { serializeAnalysisResult } from '../../../lib/planIO'
 import type { DiseaseSignature, Plant } from '../../../types/domain'
+import { AnalysisResultView } from './AnalysisResultView'
 
 type Props = {
   plants: Plant[]
@@ -28,7 +29,6 @@ export function PhotoAnalyzer({ plants, diseases, onApplySuggestedCrops }: Props
   const requestID = useRef(0)
   const abortController = useRef<AbortController | null>(null)
   const result = state.status === 'ready' ? state.result : null
-  const topPlant = useMemo(() => result?.plantCandidates[0], [result])
   const busy = state.status === 'validating' || state.status === 'analyzing'
   const debug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug')
 
@@ -233,8 +233,11 @@ export function PhotoAnalyzer({ plants, diseases, onApplySuggestedCrops }: Props
           <textarea
             value={textEvidence}
             onChange={(event) => setTextEvidence(event.target.value)}
-            placeholder="Example: tomato and basil bed, cucumber leaves have white powder, soil pH 6.6..."
+            aria-describedby="text-evidence-help"
           />
+          <span id="text-evidence-help" className="field-help">
+            Example: tomato and basil bed, cucumber leaves have white powder, soil pH 6.6.
+          </span>
         </label>
         <div className="evidence-actions">
           <button
@@ -261,8 +264,11 @@ export function PhotoAnalyzer({ plants, diseases, onApplySuggestedCrops }: Props
             type="url"
             value={urlEvidence}
             onChange={(event) => setUrlEvidence(event.target.value)}
-            placeholder="https://example.com/garden-note"
+            aria-describedby="url-evidence-help"
           />
+          <span id="url-evidence-help" className="field-help">
+            If the browser cannot read the site, paste the visible page text.
+          </span>
         </label>
         <button className="icon-button text-button" type="button" onClick={() => void analyzeUrlInput()}>
           <Link2 size={16} /> Fetch URL text
@@ -292,85 +298,14 @@ export function PhotoAnalyzer({ plants, diseases, onApplySuggestedCrops }: Props
       )}
 
       {result && (
-        <div className="analysis-result">
-          <div className="analysis-badges">
-            <p className="status-pill">{result.modelStatus}</p>
-            <p className="status-pill">{result.shape}</p>
-            <p className="status-pill">{result.performanceMs} ms</p>
-          </div>
-          <strong>
-            {topPlant
-              ? `${topPlant.label} (${Math.round(topPlant.confidence * 100)}%, ${topPlant.level})`
-              : 'No plant candidate'}
-          </strong>
-          {result.suggestedCropIds.length > 0 && (
-            <button
-              className="icon-button text-button apply-suggestions"
-              type="button"
-              onClick={applySuggestions}
-            >
-              <Check size={16} /> Apply crop guesses: {labelsFor(plants, result.suggestedCropIds)}
-            </button>
-          )}
-          <button
-            className="icon-button text-button apply-suggestions"
-            type="button"
-            onClick={() => void copyAnalysis()}
-          >
-            <ClipboardCopy size={16} /> Copy analysis JSON
-          </button>
-          <div className="analysis-columns">
-            <div>
-              <span className="mini-heading">Plant candidates</span>
-              {result.plantCandidates.map((candidate) => (
-                <details key={candidate.id} className="candidate-detail">
-                  <summary>
-                    {candidate.label}: {Math.round(candidate.confidence * 100)}% ({candidate.level})
-                  </summary>
-                  {candidate.reasons.map((reason) => (
-                    <p key={reason}>{reason}</p>
-                  ))}
-                  {candidate.warnings.map((warning) => (
-                    <p className="warning-text" key={warning}>
-                      {warning}
-                    </p>
-                  ))}
-                </details>
-              ))}
-            </div>
-            <div>
-              <span className="mini-heading">Disease hints</span>
-              {result.diseaseCandidates.map((candidate) => (
-                <details key={candidate.id} className="candidate-detail">
-                  <summary>
-                    {candidate.label}: {Math.round(candidate.confidence * 100)}% ({candidate.level})
-                  </summary>
-                  {candidate.reasons.map((reason) => (
-                    <p key={reason}>{reason}</p>
-                  ))}
-                  {candidate.warnings.map((warning) => (
-                    <p className="warning-text" key={warning}>
-                      {warning}
-                    </p>
-                  ))}
-                </details>
-              ))}
-            </div>
-          </div>
-          {result.diagnostics.length > 0 && (
-            <p className="muted">Diagnostics: {result.diagnostics.join(', ')}</p>
-          )}
-          {debug && (
-            <pre className="debug-panel">
-              {JSON.stringify({ provenance: result.provenance, inputId: result.inputId }, null, 2)}
-            </pre>
-          )}
-        </div>
+        <AnalysisResultView
+          result={result}
+          plants={plants}
+          debug={debug}
+          onApplySuggestions={applySuggestions}
+          onCopyAnalysis={() => void copyAnalysis()}
+        />
       )}
     </section>
   )
-}
-
-function labelsFor(plants: Plant[], ids: string[]) {
-  return ids.map((id) => plants.find((plant) => plant.id === id)?.common_name ?? id).join(', ')
 }

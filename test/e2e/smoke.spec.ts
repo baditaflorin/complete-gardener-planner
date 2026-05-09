@@ -19,4 +19,22 @@ test('loads the Pages planner and supports one happy path', async ({ page }) => 
   await page.getByLabel('Carrot').check()
   await expect(page.getByRole('heading', { name: /kg expected/i })).toBeVisible()
   await expect(page.getByText(/Carrot/).first()).toBeVisible()
+
+  await page
+    .getByLabel(/Paste garden note/i)
+    .fill('Tomato and basil bed with white powder on cucumber leaves.')
+  await page.getByRole('button', { name: /Analyze text/i }).click()
+  await expect(page.getByText(/Text evidence classifier active/i)).toBeVisible()
+  await expect(page.getByRole('button', { name: /Apply crop guesses/i })).toBeVisible()
+
+  const csvDownload = page.waitForEvent('download')
+  await page.getByRole('button', { name: /Harvest CSV/i }).click()
+  await expect((await csvDownload).suggestedFilename()).toContain('harvest.csv')
+
+  const stateDownload = page.waitForEvent('download')
+  await page.getByRole('button', { name: /State JSON/i }).click()
+  await expect((await stateDownload).suggestedFilename()).toContain('garden-state.json')
+
+  await page.getByRole('button', { name: /Share link/i }).click()
+  await expect(page).toHaveURL(/#garden=/)
 })

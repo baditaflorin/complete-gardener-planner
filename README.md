@@ -20,13 +20,29 @@ make build
 make pages-preview
 ```
 
-## What Works In V1
+## Verified Features
 
-- Snap or upload a garden photo and get client-side plant and disease candidates.
+- Snap or upload one or more garden photos and get client-side plant and disease candidates.
+- Drag/drop images, paste screenshots or garden notes, analyze typed text, load a sample, or fetch CORS-allowed URL text with paste guidance when the browser blocks the site.
 - Pick crops, frost zone, soil cell, planting date, bed area, and shade.
 - Generate a SunCalc-based sun map, watering schedule, crop rotation, companion-planting hints, and harvest projection.
+- Export/import versioned garden state JSON, copy a summary, copy a share link, print the plan, and download harvest projections as CSV.
 - Fetch versioned static artifacts from `docs/data/v1/`.
-- See the published version and latest GitHub commit in the page footer.
+- See the published version and deterministic published commit in the page footer.
+
+## Limitations
+
+- The PlantNet-style flow is an offline heuristic and ONNX-ready browser path, not a bundled PlantNet model artifact yet.
+- URL input is limited by normal browser CORS rules; when a site blocks reading, paste the visible page text instead.
+- Share links encode small garden plans in the URL hash. Use state JSON for long-term backup or cross-browser transfer.
+
+## Confidence Checks
+
+```bash
+make test
+make test-integration
+make smoke
+```
 
 ## Architecture
 
