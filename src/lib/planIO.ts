@@ -79,6 +79,29 @@ export function decodeShareHash(hash: string): GardenPlan | null {
   }
 }
 
+export type InitialPlanResolution = {
+  plan: GardenPlan
+  statusMessage: string
+  /**
+   * True when a shared plan was decoded from the URL hash and consumed. The
+   * caller must strip the hash from the address bar once this is true.
+   *
+   * Without this, the hash stays in the URL after the shared plan is loaded,
+   * so every later reload of that same tab (or a bookmark of it) re-decodes
+   * the same stale snapshot and silently overwrites whatever the user saved
+   * locally in the meantime, discarding their edits with no confirmation.
+   */
+  shouldClearShareHash: boolean
+}
+
+export function resolveInitialPlan(hash: string, storedPlan: GardenPlan): InitialPlanResolution {
+  const shared = decodeShareHash(hash)
+  if (shared) {
+    return { plan: shared, statusMessage: 'Loaded shared plan from URL', shouldClearShareHash: true }
+  }
+  return { plan: storedPlan, statusMessage: 'Saved locally in this browser', shouldClearShareHash: false }
+}
+
 export function buildPlanSummary(plan: GardenPlan, data: StaticData, outputs: PlannerOutputs) {
   const crops = plan.selectedCropIds.map((id) => labelForPlant(data.plants, id)).join(', ') || 'none'
   const harvestTotal = outputs.harvests.reduce((sum, item) => sum + item.yieldKg, 0).toFixed(1)
