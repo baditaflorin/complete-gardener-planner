@@ -3,7 +3,7 @@ import { HeartHandshake, RefreshCw, Sprout, Upload } from 'lucide-react'
 import { clearGardenPlan, loadGardenPlan, saveGardenPlan } from '../../lib/storage'
 import { useStaticData } from '../../lib/staticData'
 import type { GardenPlan } from '../../types/domain'
-import { decodeShareHash } from '../../lib/planIO'
+import { resolveInitialPlan } from '../../lib/planIO'
 import {
   defaultGardenPlan,
   labelForPlant,
@@ -26,10 +26,16 @@ export function PlannerApp() {
 
   useEffect(() => {
     void loadGardenPlan().then((stored) => {
-      const shared = decodeShareHash(window.location.hash)
-      setPlan(shared ?? stored)
-      setSaved(shared ? 'Loaded shared plan from URL' : 'Saved locally in this browser')
+      const resolution = resolveInitialPlan(window.location.hash, stored)
+      setPlan(resolution.plan)
+      setSaved(resolution.statusMessage)
       setLoaded(true)
+      if (resolution.shouldClearShareHash) {
+        // Consume the share hash so a later reload of this tab re-reads the
+        // freshly saved local plan instead of silently reapplying the same
+        // stale shared snapshot and discarding any edits made since.
+        window.history.replaceState(null, '', window.location.pathname)
+      }
     })
   }, [])
 
